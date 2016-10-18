@@ -7359,6 +7359,15 @@ public static final String PHONE_BLACKLIST_REGEX_ENABLED = "phone_blacklist_rege
         public static final String INSTALL_NON_MARKET_APPS = "install_non_market_apps";
 
         /**
+         * Whether applications can fake a signature.
+         *
+         * <p>1 = permit apps to fake signature
+         * <p>0 = disable this feature
+         * @hide
+         */
+         public static final String ALLOW_SIGNATURE_FAKE = "allow_signature_fake";
+ 		
+        /**
          * One Handed mode toggle
          * @hide
          */
