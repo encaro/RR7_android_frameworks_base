@@ -1160,12 +1160,7 @@ public class Tethering extends BaseNetworkObserver implements IControlsTethering
 
         synchronized (mPublicSync) {
             if (enable) {
-                int currentState = Settings.System.getInt(mContext.getContentResolver(),
-                       Settings.System.MTP_DIRTY_HACK, 1);
-                Settings.System.putInt(mContext.getContentResolver(),
-                       Settings.System.MTP_DIRTY_HACK_SAVE, currentState);
-                Settings.System.putInt(mContext.getContentResolver(),
-                        Settings.System.MTP_DIRTY_HACK, 0);
+                SystemProperties.set("mtp_hack", "true");
                 if (mRndisEnabled) {
                     final long ident = Binder.clearCallingIdentity();
                     try {
@@ -1178,10 +1173,7 @@ public class Tethering extends BaseNetworkObserver implements IControlsTethering
                     usbManager.setCurrentFunction(UsbManager.USB_FUNCTION_RNDIS, false);
                 }
             } else {
-                int oldState = Settings.System.getInt(mContext.getContentResolver(),
-                       Settings.System.MTP_DIRTY_HACK_SAVE, 1);
-                Settings.System.putInt(mContext.getContentResolver(),
-                        Settings.System.MTP_DIRTY_HACK, oldState);
+                SystemProperties.set("mtp_hack", "");
                 final long ident = Binder.clearCallingIdentity();
                 try {
                     tetherMatchingInterfaces(false, ConnectivityManager.TETHERING_USB);
